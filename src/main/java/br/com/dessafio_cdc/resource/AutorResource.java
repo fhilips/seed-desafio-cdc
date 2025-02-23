@@ -6,19 +6,24 @@ import br.com.dessafio_cdc.respository.AutorRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController("autor")
+@RestController
+@RequestMapping("/autor")
 @RequiredArgsConstructor
 public class AutorResource {
 
+    @Autowired
     private final AutorRepository autorRepo;
 
     @PostMapping(value = "/cadastrar")
     @Transactional
-    public ResponseEntity<String> cadastrar(@Valid AutorRequest autorRequest){
+    public ResponseEntity<String> cadastrar(@Valid @RequestBody AutorRequest autorRequest){
         Autor autor = autorRequest.toAutor();
         autorRepo.save(autor);
 

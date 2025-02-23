@@ -2,7 +2,6 @@ package br.com.dessafio_cdc.model;
 
 import br.com.dessafio_cdc.dto.AutorRequest;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -11,6 +10,7 @@ import java.time.Instant;
 @Getter
 @NoArgsConstructor
 @Table(name = "autor")
+@Entity
 public class Autor {
 
     @Id
