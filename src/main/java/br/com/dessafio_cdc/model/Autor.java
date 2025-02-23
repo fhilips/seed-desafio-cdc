@@ -20,6 +20,7 @@ public class Autor {
     @Column(nullable = false)
     private String nome;
 
+    @Column(unique = true)
     private String email;
 
     @Column(nullable = false, length = 400)
