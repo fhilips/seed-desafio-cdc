@@ -1,6 +1,6 @@
 package br.com.dessafio_cdc.model;
 
-import br.com.dessafio_cdc.dto.AutorRequest;
+import br.com.dessafio_cdc.model.dto.AutorRequest;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,29 +1,28 @@
 package br.com.dessafio_cdc.resource;
 
-import br.com.dessafio_cdc.model.dto.AutorRequest;
-import br.com.dessafio_cdc.model.Autor;
-import br.com.dessafio_cdc.respository.AutorRepository;
+import br.com.dessafio_cdc.model.Categoria;
+import br.com.dessafio_cdc.model.dto.CategoriaRequest;
+import br.com.dessafio_cdc.respository.CategoriaRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/autor")
+@RequestMapping("/categoria")
 @RequiredArgsConstructor
-public class AutorResource {
+public class CategoriaResource {
 
     @Autowired
-    private final AutorRepository autorRepo;
+    private final CategoriaRepository categoriaRepository;
 
     @PostMapping(value = "/cadastrar")
     @Transactional
-    public ResponseEntity<String> cadastrar(@Valid @RequestBody AutorRequest autorRequest){
-        Autor autor = autorRequest.toAutor();
-        autorRepo.save(autor);
+    public ResponseEntity<String> cadastrar(@Valid @RequestBody CategoriaRequest request){
+        Categoria categoria = request.toCategoria();
+        categoriaRepository.save(categoria);
         return ResponseEntity.ok().build();
     }
 }

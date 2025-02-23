@@ -1,21 +1,23 @@
 package br.com.dessafio_cdc.resource;
 
 import br.com.dessafio_cdc.model.dto.AutorRequest;
+import br.com.dessafio_cdc.model.dto.CategoriaRequest;
 import br.com.dessafio_cdc.respository.AutorRepository;
+import br.com.dessafio_cdc.respository.CategoriaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 @Component
-public class EmailDuplicadoValidatorValidator implements Validator {
+public class CategoriaDuplicadaValidator implements Validator {
 
     @Autowired
-    private AutorRepository autorRepo;
+    private CategoriaRepository categoriaRepository;
 
     @Override
     public boolean supports(Class<?> clazz) {
-        return AutorRequest.class.isAssignableFrom(clazz);
+        return CategoriaRequest.class.isAssignableFrom(clazz);
     }
 
     @Override
@@ -24,11 +26,11 @@ public class EmailDuplicadoValidatorValidator implements Validator {
             return;
         }
 
-        AutorRequest request = (AutorRequest) target;
-        boolean isExisteEmailCadastrado = autorRepo.existsByEmail(request.getEmail());
+        CategoriaRequest request = (CategoriaRequest) target;
+        boolean isExisteNomeCadastrado = categoriaRepository.existsByNome(request.getNome());
 
-        if(isExisteEmailCadastrado) {
-            errors.rejectValue("email", null, "Email já cadastrado no sistema!");
+        if(isExisteNomeCadastrado) {
+            errors.rejectValue("nome", null, "Nome de categoria já existe no sistema!");
         }
     }
 }

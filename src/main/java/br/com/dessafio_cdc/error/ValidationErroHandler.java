@@ -3,6 +3,7 @@ package br.com.dessafio_cdc.error;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -20,12 +21,11 @@ public class ValidationErroHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(IllegalAccessException.class)
-    public String handleIllegalAccessException(IllegalAccessException exception) {
-//        List<ObjectError> globalErro = exception.getBindingResult().getGlobalErrors();
-//        List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
-//        return buildValidationErrors(globalErro, fieldErrors);
+    public String handleIllegalAccessException(BindException exception) {
+        List<ObjectError> globalErro = exception.getBindingResult().getGlobalErrors();
+        List<FieldError> fieldErrors = exception.getBindingResult().getFieldErrors();
 
-        return exception.getMessage();
+        return buildValidationErrors(globalErro, fieldErrors);
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
