@@ -1,8 +1,7 @@
 package br.com.dessafio_cdc.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import br.com.dessafio_cdc.dto.AutorRequest;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,12 +14,12 @@ import java.time.Instant;
 public class Autor {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(nullable = false)
     private String nome;
 
-    @Email
     private String email;
 
     @Column(nullable = false, length = 400)
@@ -29,7 +28,10 @@ public class Autor {
     @Column(nullable = false)
     private Instant dataIn;
 
-
-
-
+    public Autor(AutorRequest autorRequest) {
+        this.nome = autorRequest.getNome();
+        this.email = autorRequest.getEmail();
+        this.descricao = autorRequest.getDescricao();
+        this.dataIn = Instant.now();
+    }
 }
